@@ -16,3 +16,4 @@ This is a diagram of the basic connections for the arduino pro mini below:
 
 ![Nitrox Board](https://github.com/rolandoman/DIYNitroxSensor/assets/35143707/fe565a39-4848-4ca4-982a-49affa169053)
 
+![Nitrox Schematic](Nitrox Board.jpg)
