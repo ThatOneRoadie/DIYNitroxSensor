@@ -1,7 +1,7 @@
 # DIYNitroxSensor
 Attempt to create an easy to assemble Kitable Nitrox Sensor for analyzing Scuba tank oxygen content
 Mostly for remote dive locations that may lack financial resources
-This project borrows heavily on https://www.divetech.com/post/the-20-nitrox-analyzer
+This project borrows heavily on https://www.divetech.com/post/the-20-nitrox-analyzer, but adds a number of improvements including rechargeable battery circuit, custom PCB, and stronger bolt-together case. The goal is to have a project that is almost kitable for remote dive locations. 
 
 This repository will mostly contain arduino code files and KiCAD files. 
 
