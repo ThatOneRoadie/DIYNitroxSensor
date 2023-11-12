@@ -5,7 +5,7 @@ This project borrows heavily on https://www.divetech.com/post/the-20-nitrox-anal
 
 This repository will mostly contain arduino code files and KiCAD files. 
 
-The main project page can be found on instructables: [https://www.instructables.com/](https://www.instructables.com/Yet-Another-DIY-Nitrox-Sensor/)
+The main project page can be found on instructables: [[https://www.instructables.com/](https://www.instructables.com/Yet-Another-DIY-Nitrox-Sensor/)](https://www.instructables.com/Yet-Another-DIY-Nitrox-Sensor/)
 
 The 3D printer files can be found on Thingiverse: https://www.thingiverse.com/thing:6300317
 
