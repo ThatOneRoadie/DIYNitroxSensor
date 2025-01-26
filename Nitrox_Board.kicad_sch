@@ -1550,7 +1550,7 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 86.36) (xy 41.91 86.36)
+			(xy 22.86 86.36) (xy 41.91 86.36)
 		)
 		(stroke
 			(width 0)
@@ -1560,7 +1560,7 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 73.66) (xy 44.45 73.66)
+			(xy 22.86 73.66) (xy 44.45 73.66)
 		)
 		(stroke
 			(width 0)
@@ -1750,16 +1750,6 @@
 	)
 	(wire
 		(pts
-			(xy 24.13 87.63) (xy 43.18 87.63)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "3b8102cf-989c-4dd7-a524-0fc9793ab344")
-	)
-	(wire
-		(pts
 			(xy 123.19 68.58) (xy 130.81 68.58)
 		)
 		(stroke
@@ -1790,16 +1780,6 @@
 	)
 	(wire
 		(pts
-			(xy 25.4 88.9) (xy 25.4 92.71)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "51557a7e-f05a-4bb2-9d1b-0757b55527d5")
-	)
-	(wire
-		(pts
 			(xy 119.38 48.26) (xy 127 48.26)
 		)
 		(stroke
@@ -1807,16 +1787,6 @@
 			(type default)
 		)
 		(uuid "58e5dde5-b592-4283-b7e4-0211a3186986")
-	)
-	(wire
-		(pts
-			(xy 25.4 88.9) (xy 44.45 88.9)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "5f751fa9-2af8-4b3e-ae20-51ee7304db9a")
 	)
 	(wire
 		(pts
@@ -1850,7 +1820,7 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 81.28) (xy 26.67 86.36)
+			(xy 22.86 81.28) (xy 22.86 86.36)
 		)
 		(stroke
 			(width 0)
@@ -1940,13 +1910,13 @@
 	)
 	(wire
 		(pts
-			(xy 44.45 81.28) (xy 44.45 88.9)
+			(xy 24.13 87.63) (xy 43.18 87.63)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "a5a80cba-50d6-4e6b-a9a7-dcd71bb52ad1")
+		(uuid "a3ba7c5a-cd44-4e85-9af8-a72b189dbbce")
 	)
 	(wire
 		(pts
@@ -1990,13 +1960,13 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 92.71) (xy 25.4 92.71)
+			(xy 43.18 78.74) (xy 43.18 87.63)
 		)
 		(stroke
 			(width 0)
 			(type default)
 		)
-		(uuid "b4205367-5016-4b4b-aee4-ce0612b475fa")
+		(uuid "b390cf1e-2606-46c4-a712-e62adfa56445")
 	)
 	(wire
 		(pts
@@ -2047,16 +2017,6 @@
 			(type default)
 		)
 		(uuid "bd454b93-0c40-4232-9386-bd0f9feb0bd8")
-	)
-	(wire
-		(pts
-			(xy 43.18 87.63) (xy 43.18 78.74)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "be5151e1-5541-4675-995a-4ed76b99c8ef")
 	)
 	(wire
 		(pts
@@ -2160,7 +2120,7 @@
 	)
 	(wire
 		(pts
-			(xy 26.67 78.74) (xy 26.67 73.66)
+			(xy 22.86 78.74) (xy 22.86 73.66)
 		)
 		(stroke
 			(width 0)
@@ -2506,7 +2466,7 @@
 	)
 	(symbol
 		(lib_id "Connector_Generic:Conn_01x02")
-		(at 31.75 78.74 0)
+		(at 27.94 78.74 0)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom yes)
@@ -2514,8 +2474,8 @@
 		(dnp no)
 		(fields_autoplaced yes)
 		(uuid "0771e4f8-f411-4409-b563-3f12044382ef")
-		(property "Reference" "Sensor1"
-			(at 34.29 78.74 0)
+		(property "Reference" "O2Sensor"
+			(at 30.48 79.3749 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2524,7 +2484,7 @@
 			)
 		)
 		(property "Value" "~"
-			(at 34.29 81.28 0)
+			(at 30.48 81.28 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2533,7 +2493,7 @@
 			)
 		)
 		(property "Footprint" "Connector_JST:JST_XH_B2B-XH-A_1x02_P2.50mm_Vertical"
-			(at 31.75 78.74 0)
+			(at 27.94 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2542,7 +2502,7 @@
 			)
 		)
 		(property "Datasheet" "~"
-			(at 31.75 78.74 0)
+			(at 27.94 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2551,7 +2511,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 31.75 78.74 0)
+			(at 27.94 78.74 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -2568,7 +2528,7 @@
 		(instances
 			(project "Nitrox_Board"
 				(path "/f427a0c7-1886-4932-8356-bf0159ce0656"
-					(reference "Sensor1")
+					(reference "O2Sensor")
 					(unit 1)
 				)
 			)
@@ -2943,7 +2903,7 @@
 		)
 	)
 	(symbol
-		(lib_id "Connector_Generic:Conn_01x04")
+		(lib_id "Connector_Generic:Conn_01x03")
 		(at 31.75 97.79 0)
 		(mirror x)
 		(unit 1)
@@ -2952,7 +2912,7 @@
 		(on_board yes)
 		(dnp no)
 		(uuid "41befd87-8d24-419e-ad32-46032fc1f232")
-		(property "Reference" "Sensor2"
+		(property "Reference" "COSensor"
 			(at 34.29 97.1551 0)
 			(effects
 				(font
@@ -2988,7 +2948,7 @@
 				(hide yes)
 			)
 		)
-		(property "Description" "Generic connector, single row, 01x04, script generated (kicad-library-utils/schlib/autogen/connector/)"
+		(property "Description" "Generic connector, single row, 01x03, script generated (kicad-library-utils/schlib/autogen/connector/)"
 			(at 31.75 97.79 0)
 			(effects
 				(font
@@ -3003,16 +2963,13 @@
 		(pin "2"
 			(uuid "b4262ddb-4da7-4746-8f8c-6e7b739bb4e8")
 		)
-		(pin "4"
-			(uuid "781d42b9-ab8a-459f-bbfb-19e1ddf78bcc")
-		)
 		(pin "3"
 			(uuid "c29bb90c-c035-4281-b889-1e196ff18c41")
 		)
 		(instances
 			(project "Nitrox_Board"
 				(path "/f427a0c7-1886-4932-8356-bf0159ce0656"
-					(reference "Sensor2")
+					(reference "COSensor")
 					(unit 1)
 				)
 			)

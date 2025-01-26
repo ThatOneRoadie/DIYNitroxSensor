@@ -31,8 +31,10 @@
 #define SCREEN_WIDTH 128 // OLED display width, in pixels
 #define SCREEN_HEIGHT 64 // OLED display height, in pixels
 
-#define RA_SIZE 20
-RunningAverage RA(RA_SIZE);
+#define O2_RA_SIZE 20
+#define CO_RA_SIZE 5
+RunningAverage RAO2(O2_RA_SIZE);
+RunningAverage RACO(CO_RA_SIZE);
 
 ADS1115 ads(0x48); 
 
@@ -64,7 +66,7 @@ double result_max = 0;
 float max_po1 = 1.40; //default setting on boot - changed to 1.40 which is more common
 const float max_po2 = 1.60;
 float cal_mod (float percentage, float ppo2 = 1.4) {
-  return 10 * ( (ppo2/(percentage/100)) - 1 );
+  return 32.8084 * ( (ppo2/(percentage/100)) - 1 );
 }
 
 //-----------------------------------------------------------------------------
@@ -80,13 +82,19 @@ void beep(int x=1) { // make beep for x time
 }  // end beep function
 
 //-----------------------------------------------------------------------------
-
-void read_sensor(int adc=0) {  
+//Oxygen Sensor Read
+void read_o2_sensor(int adc=0) {  
   int16_t millivolts = 0;
   millivolts = ads.readADC_Differential_0_1();
-  RA.addValue(millivolts);
-}  // end read_sensor function
+  RAO2.addValue(millivolts);
+}  // end read_o2_sensor function
 
+//CO Sensor Read
+void read_co_sensor(int adc=0) {  
+  int16_t millivolts = 0;
+  millivolts = ads.readADC(2);
+  RACO.addValue(millivolts);
+}  // end read_co_sensor function
 //-----------------------------------------------------------------------------
 
 void setup(void) {  
@@ -110,15 +118,18 @@ void setup(void) {
   
   pinMode(buttonPin,INPUT_PULLUP);  
   
-  RA.clear();
-  for(int cx=0; cx<= RA_SIZE; cx++) {
-     read_sensor(0);
+  RAO2.clear();
+  for(int cx=0; cx<= O2_RA_SIZE; cx++) {
+     read_o2_sensor(0);
   }
     
-  calibrationv = EEPROMReadInt(0);  
-  if (calibrationv < 100) {
-    calibrationv = calibrate(0);
-  }
+  //calibrationv = EEPROMReadInt(0);  
+  //if (calibrationv < 1) {
+  //  calibrationv = calibrate(0);
+  //}
+
+  //Always calibrate on boot
+  calibrationv = calibrate(0);
   
   beep(1);
 }  // end setup
@@ -155,14 +166,23 @@ int calibrate(int x) {
   display.print(F("Calibrate"));
   display.display();
     
-  //RA.clear();
+  //RAO2.clear();
   double result;  
-  for(int cx=0; cx<= RA_SIZE; cx++) {
-    read_sensor(0);
+  for(int cx=0; cx<= O2_RA_SIZE; cx++) {
+    read_o2_sensor(0);
   }
-  result = RA.getAverage();
+  result = RAO2.getAverage();
   result = abs(result);
   EEPROMWriteInt(x, result); // write to eeprom
+  
+  // CO.clear();
+  double coresult;
+  for(int cx=0; cx<= CO_RA_SIZE; cx++) {
+    read_co_sensor(0);
+  }
+  coresult = RACO.getAverage();
+  coresult = abs(coresult);
+  EEPROMWriteInt(x, coresult); // write to eeprom 
 
   beep(1);
   delay(1000);
@@ -170,26 +190,47 @@ int calibrate(int x) {
   return result;
 }  // end calibrate function
 
+// Helper to Center Text
+void drawCentreString(const String &buf, int x, int y) {
+    int16_t x1, y1;
+    uint16_t w, h;
+    display.getTextBounds(buf, x, y, &x1, &y1, &w, &h); //calc width of new string
+    display.setCursor(x - w / 2, y);
+    display.print(buf);
+}
 //-----------------------------------------------------------------------------
 
 void analysing(int x, int cal) {
-  double currentmv=0;
+  double currento2mv=0;
+  double currentcomv=0;
   double result;
-  double mv = 0.0;
+  double coresult;
+  double o2mv = 0.0;
+  double comv = 0.0;
 
-  read_sensor(0);
-  currentmv = RA.getAverage();
-  currentmv = abs(currentmv);
+
+  read_o2_sensor(0);
+  currento2mv = RAO2.getAverage();
+  currento2mv = abs(currento2mv);
+  read_co_sensor(0);
+  currentcomv = RACO.getAverage();
+  currentcomv = abs(currentcomv);  
+
   
-  result = (currentmv / cal) * 20.9;
+  result = (currento2mv / cal) * 20.9;
   if (result > 99.9) result = 99.9;
-  mv = currentmv * multiplier;
+  o2mv = currento2mv * multiplier;
+
+  comv = currentcomv * multiplier;
+  coresult = (comv - 400) / 8;
+  if (coresult < 0) coresult = 0;
+  
  
   display.clearDisplay();
   display.setTextColor(WHITE);
   display.setCursor(0,0);
   
-  if (mv < 0.02 || result <= 0) {
+  if (o2mv < 0.02 || result <= 0) {
      display.setTextSize(2);
      display.println(F("Sensor"));
      display.print(F("Error!"));
@@ -210,7 +251,7 @@ void analysing(int x, int cal) {
     display.print(result_max,1);
     display.print(F("%   "));    
     //display.setCursor(75,31);
-    display.print(mv,2);    
+    display.print(o2mv,2);    
     display.print(F("mv"));
      
     if (active % 4) {
@@ -221,19 +262,31 @@ void analysing(int x, int cal) {
     
     display.setTextColor(WHITE);
     display.setTextSize(1);
-    display.setCursor(0,40);
+    display.setCursor(0,39);
     display.print(F("pO2 "));
     display.print(max_po1,1);
     display.print(F("  /  "));
     display.print(max_po2,1);
     display.print(F(" MOD"));
 
-    display.setTextSize(2);
-    display.setCursor(0,50);
-    display.print(cal_mod(result_max,max_po1),1);
-    display.print(F("/"));
-    display.print(cal_mod(result_max,max_po2),1);
-    display.print(F("m "));
+    display.setTextSize(1);
+    //display.setCursor(0,49);
+    //display.print(cal_mod(result_max,max_po1),0);
+    //display.print(F("/"));
+    //display.print(cal_mod(result_max,max_po2),0);
+    //display.print(F("ft "));
+    String modstr = String(int(cal_mod(result,max_po1))) + "/" + String(int(cal_mod(result,max_po2))) + " ft";
+    drawCentreString(modstr,64,49);
+
+    display.setTextSize(1);
+    display.setCursor(0,57);
+    display.setTextColor(BLACK, WHITE);    
+    display.print(F("CO:"));
+    display.print(coresult,1);
+    display.print(F(" ppm "));    
+    //display.setCursor(75,31);
+    display.print(comv,0);    
+    display.print(F("mv"));
     
     // menu
     if (secs_held < 7 && active > 16) {
@@ -250,7 +303,15 @@ void analysing(int x, int cal) {
         display.print(F("   MAX    "));
       }     
     }  
-
+    // CO Alarm
+    if (coresult > 0){
+      if (active % 3) {
+        display.setCursor(0,16);
+        display.setTextSize(3);
+        display.setTextColor(BLACK, WHITE);
+        display.println(F("CO WARN"));
+        }
+    }
   }
   display.display();
 }  // end analysing function
@@ -260,11 +321,11 @@ void analysing(int x, int cal) {
 void lock_screen(long pause = 5000) {
   beep(1);
   display.setTextSize(1);
-  display.setCursor(0,31);  
+  display.setCursor(0,37);  
   display.setTextColor(0xFFFF, 0);
   display.print(F("                "));
   display.setTextColor(BLACK, WHITE);
-  display.setCursor(0,31);
+  display.setCursor(0,37);
   display.print(F("======= LOCK ======="));
   display.display();
   for (int i = 0; i < pause; ++i) {   
