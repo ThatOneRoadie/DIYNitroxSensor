@@ -1,4 +1,6 @@
 # DIYNitroxSensor
+With massive thanks to @rolandoman for the work on the PCB, this is an addition to the project to add a Carbon Monoxide sensor following some recent incidents and deaths within the Scuba community from contaminated breathing gases.
+
 Attempt to create an easy to assemble Kitable Nitrox Sensor for analyzing Scuba tank oxygen content
 Mostly for remote dive locations that may lack financial resources
 This project borrows heavily on https://www.divetech.com/post/the-20-nitrox-analyzer, but adds a number of improvements including rechargeable battery circuit, custom PCB, and stronger bolt-together case. The goal is to have a project that is almost kitable for remote dive locations. 
@@ -12,7 +14,7 @@ The 3D printer files can be found on Thingiverse: https://www.thingiverse.com/th
 I have been a consumer of many of these amazing DIY sites for so many years and have never tried to put together a great tutorial myself, so here goes nothing...
 
 This is a diagram of the basic connections for the arduino pro mini below:
-![NitroxBoard](https://github.com/rolandoman/DIYNitroxSensor/assets/35143707/91f06973-697c-49b6-a835-74f9b90954ca)
+![NitroxBoard](https://github.com/ThatOneRoadie/DIYNitroxSensor/blob/3a10627a9bd0b405696d824c4b55a104c3e84ba5/Nitrox%20Board.jpg)
 
 Here is a picture of the specialized PCB for the project designed on KiCAD. File included in the project.
 ![FITQNX9LOOCEBOK](https://github.com/rolandoman/DIYNitroxSensor/assets/35143707/e697c9b1-5754-42d5-bb32-a8f16a314d7c)
